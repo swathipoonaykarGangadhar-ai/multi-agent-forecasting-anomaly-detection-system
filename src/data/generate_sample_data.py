@@ -14,6 +14,7 @@ def generate_sample_data(
     n_days: int = 365,
     start_date: str = "2025-01-01",
     seed: int = 42,
+    write_csv: bool = True,
 ) -> pd.DataFrame:
     rng = np.random.default_rng(seed)
     dates = pd.date_range(start=start_date, periods=n_days, freq="D")
@@ -69,14 +70,14 @@ def generate_sample_data(
     df["units_sold"] = df["units_sold"].round(0).astype(int)
     df["active_customers"] = df["active_customers"].round(0).astype(int)
 
-    out_path = Path(__file__).resolve().parents[2] / "data" / "sample_business_metrics.csv"
-    out_path.parent.mkdir(parents=True, exist_ok=True)
-    df.to_csv(out_path, index=False)
-
-    print(f"Wrote {len(df)} rows to {out_path}")
-    print("Injected anomalies (ground truth, for validation only):")
-    for d, col, kind in anomaly_log:
-        print(f"  {d}  {col:<18} {kind}")
+    if write_csv:
+        out_path = Path(__file__).resolve().parents[2] / "data" / "sample_business_metrics.csv"
+        out_path.parent.mkdir(parents=True, exist_ok=True)
+        df.to_csv(out_path, index=False)
+        print(f"Wrote {len(df)} rows to {out_path}")
+        print("Injected anomalies (ground truth, for validation only):")
+        for d, col, kind in anomaly_log:
+            print(f"  {d}  {col:<18} {kind}")
 
     return df
 

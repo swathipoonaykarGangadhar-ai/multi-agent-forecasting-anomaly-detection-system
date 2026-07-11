@@ -19,7 +19,7 @@ from data.generate_sample_data import generate_sample_data
 
 @pytest.fixture(scope="module")
 def sample_df():
-    return generate_sample_data(n_days=365, seed=7)
+    return generate_sample_data(n_days=365, seed=7, write_csv=False)
 
 
 def test_generated_data_has_expected_columns(sample_df):
@@ -78,7 +78,7 @@ def test_anomaly_detection_no_false_positive_on_flat_series():
 
 def test_anomaly_detection_catches_known_injected_anomalies(sample_df):
     """Cross-check against the ground-truth anomalies the generator injects."""
-    df = generate_sample_data(n_days=365, seed=42)  # matches default demo dataset
+    df = generate_sample_data(n_days=365, seed=42, write_csv=False)  # matches default demo dataset
     result = _detect_anomalies(df["revenue"], window=14)
     flagged_dates = set(df.loc[result["is_anomaly"], "date"].dt.date)
     # These are the two revenue anomalies injected by generate_sample_data(seed=42)
