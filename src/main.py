@@ -105,9 +105,9 @@ def main():
         print("\n--no-llm set: skipping LLM crew / narrative report.")
         return
 
-    if not (os.getenv("ANTHROPIC_API_KEY") or os.getenv("OPENAI_API_KEY")):
+    if not (os.getenv("ANTHROPIC_API_KEY") or os.getenv("OPENAI_API_KEY") or os.getenv("GROQ_API_KEY") or os.getenv("GEMINI_API_KEY")):
         print(
-            "\nNo ANTHROPIC_API_KEY or OPENAI_API_KEY found in environment. "
+            "\nNo GEMINI_API_KEY, GROQ_API_KEY, ANTHROPIC_API_KEY, or OPENAI_API_KEY found in environment. "
             "Set one (e.g. in a .env file) to run the LLM agent crew, "
             "or re-run with --no-llm to skip it."
         )
