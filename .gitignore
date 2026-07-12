@@ -13,3 +13,5 @@ outputs/*.md
 *.egg-info/
 .DS_Store
 .ipynb_checkpoints/
+.streamlit/secrets.toml
+uploaded_data.csv
